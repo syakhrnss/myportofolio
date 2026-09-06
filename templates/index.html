@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arsya Khairunissa Budiman Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsya Khairunissa Budiman Portfolio</title>
   
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header></header>
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+        <input type="checkbox" class="navbar__checkbox" id="navToggle">
+        <label class="navbar__toggle" for="navToggle" aria-label="Toggle navigation menu">
+            <span></span><span></span><span></span>
+        </label>
+        <ul class="navbar__list" id="navList">
+            <li><a class="navbar__link" href="#home">Home</a></li>
+            <li><a class="navbar__link" href="#about">About</a></li>
+            <li><a class="navbar__link" href="#experience">Experience</a></li>
+            <li><a class="navbar__link" href="#projects">Projects</a></li>
+            <li><a class="navbar__link" href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+  </header>
 
   <main>
     <section id="home" class="hero"></section>
