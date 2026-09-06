@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
 
@@ -29,7 +29,31 @@
   </header>
 
   <main>
-    <section id="home" class="hero"></section>
+    <section id="home" class="hero">
+        <div class="glow glow--pink hero__glow-top" aria-hidden="true"></div>
+
+        <h1 class="hero__title">Hello, I'm <span class="hero__title-accent">Arsya</span></h1>
+        <h2 class="hero__subtitle">Data Enthusiast</h2>
+
+        <div class="hero__row">
+            <p class="hero__blurb">Second-year Information Systems student at Universitas Indonesia. (NPM 2506544076)</p>
+
+            <div class="hero__photo-col">
+                <div class="glow glow--pink hero__photo-glow" aria-hidden="true"></div>
+                <div class="hero__photo-wrap">
+                    <img src="static/img/arsya.png" alt="Portrait photo of Arsya Khairunissa Budiman">
+                </div>
+            <div class="hero__socials" id="hero-socials">
+                <a class="hero__social-link" href="https://linkedin.com/in/arsyakhairunissa" target="_blank" rel="noopener">Linkedin</a>
+                <a class="hero__social-link" href="https://drive.google.com/file/d/1vfsnqUu1p1TyLhXgUkKI-UWVKMYLfalL/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+                <a class="hero__social-link" href="https://github.com/syakhrnss" target="_blank" rel="noopener">Github</a>
+            </div>
+        </div>
+
+        <p class="hero__blurb hero__blurb--right">Exploring Data Analysis, Business Intelligence, Data Science, AI, and Machine Learning</p>
+        </div>
+    </section>
+
     <section id="about" class="about"></section>
     <section id="experience" class="exp-edu"></section>
     <section id="projects" class="projects"></section>
