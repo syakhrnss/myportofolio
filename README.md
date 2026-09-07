@@ -30,7 +30,7 @@ Untuk pengembangan selanjutnya, saya berencana menambahkan beberapa fitur dinami
 
 Dalam proses pembuatan website, saya terlebih dahulu merancang tampilan dan struktur UI/UX secara manual menggunakan Figma. Setelah desain selesai, saya menggunakan plugin Figma AutoHTML sebagai alat bantu untuk menghasilkan struktur dasar HTML dan CSS dari desain tersebut. Base code yang dihasilkan kemudian saya sesuaikan kembali agar sesuai dengan kebutuhan website dan desain yang sudah dibuat.
 
-[Link Figma](](https://www.figma.com/design/t3nU8JBuBDG9snNsFG7klq/design?node-id=11-31&t=31Fw4UPs6Hxbzg7X-1)
+[Link Figma](https://www.figma.com/design/t3nU8JBuBDG9snNsFG7klq/design?node-id=11-31&t=31Fw4UPs6Hxbzg7X-1)
 
 Saya menggunakan LLM Claude dan Gemini sebagai alat bantu selama proses pengerjaan. AI saya gunakan sebagai teman berdiskusi atau learning partner ketika saya mengalami kesulitan. Contohnya, saya menggunakan AI untuk membantu mencari penyebab terjadinya layout overflow pada tampilan mobile, terutama ketika navbar keluar dari layar. Saya juga berdiskusi mengenai cara yang tepat untuk memposisikan ikon dan foto agar tetap berada di tengah tanpa mengganggu responsivitas website. Selain itu, saya menggunakan AI untuk memahami konsep beberapa properti CSS seperti `transform`, `margin: 0 auto`, serta penggunaan `left` dan `right`, termasuk untuk memahami alur kerja Git seperti proses merge dari branch `master` ke `main`.
 
