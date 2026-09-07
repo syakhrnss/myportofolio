@@ -425,8 +425,7 @@ a { color: inherit; text-decoration: none; }
     align-items:flex-start;
     position:relative;
   }
-  /* Pink connector line linking this item's logo to the next one's,
-     spans the gap regardless of how tall the item's content is */
+  
   .timeline-item:not(:last-child)::before{
     content:'';
     position:absolute;
@@ -464,7 +463,7 @@ a { color: inherit; text-decoration: none; }
   .timeline-item__role{
     font-weight:600;
     font-size: var(--fs-card-subtitle);
-    color: var(--color-text-heading-dark);
+    color: var(--color-text-dark);
     margin: 3px 0 0;
   }
   .timeline-item__date{
