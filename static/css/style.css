@@ -46,7 +46,10 @@
 }
 
 html {
+    max-width: 100vw; 
+    position: relative;
     scroll-behavior: smooth;
+    overflow-x: hidden
 }
 
 body {
