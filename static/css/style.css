@@ -372,3 +372,148 @@ a { color: inherit; text-decoration: none; }
     text-align:right;
 }
 
+.exp-edu{
+    position: relative;
+    padding: var(--space-xxxl) var(--space-l);
+    overflow:visible;
+  }
+  .exp-edu__glow{
+    width: 780px;
+    height: 780px;
+    top: 82%;
+    left: -4%;
+    filter: blur(120px);
+    background: radial-gradient(circle,
+      rgba(255,175,185,0.75) 0%,
+      rgba(255,175,185,0.45) 30%,
+      rgba(140,110,255,0.3) 55%,
+      rgba(140,110,255,0.1) 72%,
+      rgba(140,110,255,0) 85%);
+  }
+  .exp-edu__grid{
+    position:relative;
+    z-index:1;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items:start;
+  }
+  .exp-edu__col > .section-heading{ padding-bottom: var(--space-s); }
+
+  .panel{
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-xl);
+    position: relative;
+    overflow:hidden;
+  }
+  .panel--edu{ border-radius: var(--radius-m); }
+
+  .timeline{
+    display:flex;
+    flex-direction:column;
+    gap: var(--space-xl);
+    position: relative;
+  }
+  .timeline-item{
+    display:flex;
+    gap: var(--space-m);
+    align-items:flex-start;
+    position:relative;
+  }
+  /* Pink connector line linking this item's logo to the next one's,
+     spans the gap regardless of how tall the item's content is */
+  .timeline-item:not(:last-child)::before{
+    content:'';
+    position:absolute;
+    top:40px;
+    bottom:-88px;
+    left:40px;
+    width:4px;
+    background: var(--color-accent);
+    border-radius: var(--radius-pill);
+    z-index:0;
+  }
+  .timeline-item__logo{
+    position:relative;
+    z-index:1;
+    flex-shrink:0;
+    width:80px;
+    height:80px;
+    border-radius: var(--radius-s);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .timeline-item__logo img{ width:100%; height:100%; object-fit:contain; }
+  .timeline-item__body{ flex:1; padding-top: var(--space-xxs); min-width:0; }
+  .timeline-item__title{
+    font-weight:700;
+    font-size: var(--fs-card-title);
+    color: var(--color-text-dark);
+    margin: 0;
+  }
+  .timeline-item__role{
+    font-weight:600;
+    font-size: var(--fs-card-subtitle);
+    color: var(--color-text-heading-dark);
+    margin: 3px 0 0;
+  }
+  .timeline-item__date{
+    font-weight:400;
+    font-size: var(--fs-small);
+    color: var(--color-text-light-muted);
+    margin: var(--space-xs) 0 var(--space-s);
+  }
+  .timeline-item__list{
+    list-style: disc;
+    padding-left: var(--space-m);
+    color: var(--color-text-muted);
+    font-size: var(--fs-body);
+    line-height:1.6;
+  }
+  .timeline-item__list li{ margin-bottom: 4px; }
+  .timeline-item__badge{
+    display:inline-block;
+    background: var(--color-accent);
+    color: var(--color-white);
+    font-weight:600;
+    font-size: var(--fs-badge);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    margin: var(--space-xs) 0;
+  }
+  .timeline-item__field{
+    font-weight:500;
+    font-size: var(--fs-body);
+    color: var(--color-text-muted);
+    margin:0;
+  }
+
+  .info-block{ margin-top: var(--space-xl); }
+  .info-block__title{ margin-bottom: var(--space-l); }
+  .info-list{
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-xl);
+    list-style: disc;
+    padding-left: calc(var(--space-xl) + var(--space-s));
+    color: var(--color-text-muted);
+    font-size: var(--fs-card-subtitle);
+    line-height:1.65;
+    color: var(--color-text-muted);
+  }
+  .info-list li{ margin-bottom: var(--space-s); }
+  .info-list li:last-child{ margin-bottom:0; }
+  .info-list b{ color: var(--color-text-muted); font-weight:700; }
+
