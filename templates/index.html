@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsya Khairunissa Budiman Portfolio</title>
+    <title>{{ name }} - Portfolio</title>
   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,9 +19,9 @@
             <span></span><span></span><span></span>
         </label>
         <ul class="navbar__list" id="navList">
-            <li><a class="navbar__link" href="#home">Home</a></li>
+            <li><a class="navbar__link" href="{% url 'main:show_main' %}">Profile</a></li>
             <li><a class="navbar__link" href="#about">About</a></li>
-            <li><a class="navbar__link" href="#experience">Experience</a></li>
+            <li><a class="navbar__link" href="{% url 'main:show_experience' %}">Experience</a></li>
             <li><a class="navbar__link" href="#projects">Projects</a></li>
             <li><a class="navbar__link" href="#contact">Contact</a></li>
         </ul>
@@ -32,16 +32,16 @@
     <section id="home" class="hero">
         <div class="glow glow--pink hero__glow-top" aria-hidden="true"></div>
 
-        <h1 class="hero__title">Hello, I'm <span class="hero__title-accent">Arsya</span></h1>
+        <h1 class="hero__title">Hello, I'm <span class="hero__title-accent">{{ name }}</span></h1>
         <h2 class="hero__subtitle">Data Enthusiast</h2>
 
         <div class="hero__row">
-            <p class="hero__blurb">Second-year Information Systems student at Universitas Indonesia <br>NPM : 2506544076</br></p>
+            <p class="hero__blurb">Second-year {{ study_program }} student at Universitas Indonesia <br>NPM : {{ npm }} </br></p>
 
             <div class="hero__photo-col">
                 <div class="glow glow--pink hero__photo-glow" aria-hidden="true"></div>
                 <div class="hero__photo-wrap">
-                    <img src="static/img/arsya.png" alt="Portrait photo of Arsya Khairunissa Budiman">
+                    <img src="static/img/arsya.png" alt="Portrait photo of {{ name }}">
                 </div>
             <div class="hero__socials" id="hero-socials">
                 <a class="hero__social-link" href="https://linkedin.com/in/arsyakhairunissa" target="_blank" rel="noopener">Linkedin</a>
@@ -63,7 +63,7 @@
                 </div>
             <div class="about__content">
                 <h2 class="section-heading about__title">About Me</h2>
-                <p class="about__lead">I am Arsya Khairunissa Budiman, an undergraduate Information Systems student at Universitas Indonesia. Passionate about exploring data, technology, and innovation to solve real-world problems.</p>
+                <p class="about__lead"> {{ bio }} </p>
                 <p class="about__text">Curious, analytical, and driven to learn, I have developed skills across Data Analytics, Business Intelligence, and AI &amp; Machine Learning, complemented by experiences in mentoring, project coordination, and cross-functional collaboration.</p>
             </div>
         </div>
@@ -319,7 +319,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2026 Arsya Khairunissa Budiman 2506544076. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+    <p>&copy; 2026 {{ name }} 2506544076. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
   </footer>
 
 </body>
