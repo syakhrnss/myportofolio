@@ -28,37 +28,66 @@
         </ul>
     </nav>
   </header>
-
+  
   <main>
-    <section class="experience-section" id="experience">
+    <section class="experience-page" id="experience">
+        <div class="glow glow--pink experience-page__glow" aria-hidden="true"></div>
+ 
         <div class="container">
-            <p class="section-kicker">Perjalanan saya sejauh ini</p>
-            <h1>Experience</h1>
-
-            <div class="experience-grid">
-                {% for experience in experience_list %}
-                    <article class="experience-card">
-                        <span class="experience-category">
-                            {{ experience.get_category_display }}
-                        </span>
-                        <h2>{{ experience.title }}</h2>
-                        <p class="experience-description">
-                            {{ experience.description }}
-                        </p>
-
-                        {% if experience.is_ongoing %}
-                            <p class="experience-status">Sedang berlangsung</p>
-                        {% else %}
-                            <p class="experience-status">Selesai</p>
-                        {% endif %}
-                    </article>
-                {% empty %}
-                    <p class="empty-state">
-                        Belum ada pengalaman yang ditambahkan.
-                    </p>
-                {% endfor %}
+            <div class="experience-page__intro">
+                <p class="section-kicker">My Journey So Far</p>
+                <h1 class="section-heading experience-page__title">Experience</h1>
+                <p class="experience-page__subtitle">
+                    A collection of my experiences in internships, organizations, and mentoring 
+                    along with their current status.
+                </p>
             </div>
+            
+            {% if experience_list %}
+                <div class="timeline-track">
+                    <div class="timeline-track__line" aria-hidden="true"></div>
+                    <div class="timeline-track__fill" aria-hidden="true"></div>
+ 
+                    {% for experience in experience_list %}
+                        <article class="timeline-node">
+                            <div class="timeline-node__icon">
+                                <span class="timeline-node__icon-dot" aria-hidden="true"></span>
+                            </div>
+ 
+                            <div class="timeline-node__card">
+                                <div class="timeline-node__top">
+                                    <span class="timeline-node__badge experience-category">
+                                        {{ experience.get_category_display }}
+                                    </span>
+                                    <span class="timeline-node__date">
+                                        {{ experience.started_at|date:"M Y" }}
+                                        &ndash;
+                                        {% if experience.is_ongoing %}Sekarang{% else %}
+                                        {{ experience.ended_at|date:"M Y" }}{% endif %}
+                                    </span>
+                                </div>
+ 
+                                <h2>{{ experience.title }}</h2>
+                                <p class="experience-description">
+                                    {{ experience.description }}
+                                </p>
+ 
+                                {% if experience.is_ongoing %}
+                                    <p class="experience-status timeline-node__status timeline-node__status--ongoing">Sedang berlangsung</p>
+                                {% else %}
+                                    <p class="experience-status timeline-node__status timeline-node__status--done">Selesai</p>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">
+                    Belum ada pengalaman yang ditambahkan.
+                </p>
+            {% endif %}
         </div>
+
     </section>
 </main>
 

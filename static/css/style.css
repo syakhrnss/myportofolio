@@ -820,59 +820,215 @@ a { color: inherit; text-decoration: none; }
   .contact__grid{ flex-direction: column; }
 }
 
-.experience-section {
-    padding: 4rem 0;
-    border-top: 1px solid var(--line);
-}
-
 .section-kicker {
-    color: var(--accent-dark);
+    color: var(--color-accent);
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    margin: 0 0 var(--space-xs);
 }
-
-.experience-section h1 {
-    margin: 0.4rem 0 1.5rem;
-    font-size: 2rem;
-    color: white;
+ 
+.experience-page {
+    position: relative;
+    padding: 160px var(--space-l) var(--space-xxxl);
+    overflow: visible;
+    min-height: 100vh;
 }
-
-.experience-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
+.experience-page__glow {
+    width: 780px;
+    height: 780px;
+    top: 0;
+    right: -10%;
+    filter: blur(120px);
 }
-
-.experience-card {
-    padding: 1.25rem;
-    background-color: #fff;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+.experience-page__intro {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto var(--space-xxl);
+    text-align: center;
 }
-
-.experience-category {
-    color: black;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
+.experience-page__title { margin: 0 0 var(--space-s); }
+.experience-page__subtitle {
+    color: var(--color-white-70);
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+    margin: 0;
 }
-
-.experience-card h2 {
-    margin: 0.5rem 0;
-    font-size: 1.25rem;
-    color : black;
-}
-
-.experience-description,
+ 
 .empty-state {
-    color: white;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: var(--color-white-70);
+    font-size: var(--fs-lead);
+    padding: var(--space-xxl) 0;
 }
-
-.experience-status {
-    margin-top: 1rem;
-    font-size: 0.85rem;
+ 
+.timeline-track {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    view-timeline-name: --experience-scroll;
+    view-timeline-axis: block;
+}
+.timeline-track__line,
+.timeline-track__fill {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 4px;
+    border-radius: var(--radius-pill);
+}
+.timeline-track__line {
+    height: 100%;
+    background: var(--color-white-40);
+}
+.timeline-track__fill {
+    height: 0%;
+    background: var(--color-accent);
+    display: none;
+}
+ 
+.timeline-node {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-m);
+    padding-bottom: var(--space-xl);
+}
+.timeline-node:last-child { padding-bottom: 0; }
+ 
+.timeline-node__icon {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    border: 2px solid var(--color-white-40);
+    border-radius: 50%;
+}
+.timeline-node__icon-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-white-40);
+}
+ 
+.timeline-node__card {
+    flex: 1;
+    min-width: 0;
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-l);
+}
+ 
+@supports (animation-timeline: view()) {
+    .timeline-track__fill {
+        display: block;
+        animation: timeline-fill-grow linear both;
+        animation-timeline: --experience-scroll;
+        animation-range: cover 0% cover 100%;
+    }
+    .timeline-node__icon {
+        animation: timeline-icon-highlight linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 25%;
+    }
+    .timeline-node__icon-dot {
+        animation: timeline-dot-highlight linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 25%;
+    }
+    .timeline-node__card {
+        opacity: 0;
+        transform: translateY(24px);
+        animation: timeline-card-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 25%;
+    }
+}
+ 
+@keyframes timeline-fill-grow {
+    from { height: 0%; }
+    to { height: 100%; }
+}
+@keyframes timeline-icon-highlight {
+    from { border-color: var(--color-white-40); transform: scale(1); box-shadow: none; }
+    to { border-color: var(--color-accent); transform: scale(1.08); box-shadow: 0 0 0 6px rgba(255, 175, 185, 0.2); }
+}
+@keyframes timeline-dot-highlight {
+    from { background: var(--color-white-40); }
+    to { background: var(--color-accent); }
+}
+@keyframes timeline-card-reveal {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+ 
+.timeline-node__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-s);
+}
+.timeline-node__badge.experience-category {
+    display: inline-block;
+    background: var(--color-accent-light);
+    color: #7a2b3d;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+}
+.timeline-node__date {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--color-text-light-muted);
+    border: 1px solid var(--color-border);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+}
+ 
+.timeline-node__card h2 {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+}
+.experience-description {
+    margin: 0 0 var(--space-s);
+    color: var(--color-text-muted);
+    font-size: var(--fs-body);
+    line-height: 1.65;
+}
+.timeline-node__status.experience-status {
+    display: inline-block;
+    margin-top: 0;
+    font-size: 0.8rem;
     font-weight: 600;
-    color : black;
+}
+.timeline-node__status--ongoing { color: #0f7a4e; }
+.timeline-node__status--done { color: var(--color-text-light-muted); }
+ 
+@media (max-width: 640px) {
+    .experience-page { padding-top: 120px; }
+    .timeline-track__line,
+    .timeline-track__fill { left: 10px; }
+    .timeline-node__icon { width: 22px; height: 22px; }
 }
