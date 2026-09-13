@@ -4,6 +4,8 @@ from main.models import Experience
 
 
 def show_main(request):
+    experience_list = Experience.objects.all().order_by("-started_at")
+    
     context = {
         "name": "Arsya",
         "npm": "2506544076",
@@ -12,6 +14,7 @@ def show_main(request):
             "I am Arsya Khairunissa Budiman, an undergraduate Information Systems student at Universitas Indonesia."
             "Passionate about exploring data, technology, and innovation to solve real-world problems. "
         ),
+         "experience_list": experience_list,
     }
     return render(request, "index.html", context)
 

@@ -70,78 +70,56 @@
     </section>
 
     <section id="experience" class="exp-edu">
-        <div class="glow glow--pink exp-edu__glow" aria-hidden="true"></div>
+    <div class="glow glow--pink exp-edu__glow" aria-hidden="true"></div>
     <div class="exp-edu__grid">
 
-      <div class="exp-edu__col">
-        <h2 class="section-heading">Experience</h2>
-        <div class="panel reveal">
-          <div class="timeline">
+        <div class="exp-edu__col">
 
-            <article class="timeline-item reveal">
-              <div class="timeline-item__logo">
-                <img src="static/img/compfest.webp" alt="COMPFEST logo">
-              </div>
-              <div class="timeline-item__body">
-                <h3 class="timeline-item__title">COMPFEST 18</h3>
-                <p class="timeline-item__role">Staff of Data Science Academy</p>
-                <p class="timeline-item__date">Apr 2026 - Present</p>
-                <ul class="timeline-item__list">
-                  <li>Served as Liaison Officer (LO) for mentors and mentees.</li>
-                  <li>Served as Master of Ceremony (MC) for two bootcamp sessions.</li>
-                </ul>
-              </div>
-            </article>
+            <h2 class="section-heading">Experience</h2>
+            <div class="panel reveal">
+                <div class="timeline">
 
-            <article class="timeline-item reveal">
-              <div class="timeline-item__logo">
-                <img src="static/img/vinix.jpg" alt="PT Vinix logo">
-              </div>
-              <div class="timeline-item__body">
-                <h3 class="timeline-item__title">PT Vinix Seven Aurum</h3>
-                <p class="timeline-item__role">Data Scientist Intern</p>
-                <p class="timeline-item__date">Feb 2026 - Jun 2026</p>
-                <ul class="timeline-item__list">
-                  <li>Analyzed 65K+ e-commerce product reviews using Python and data visualization techniques.</li>
-                  <li>Preprocessed and explored review data to prepare datasets for machine learning and downstream analysis.</li>
-                  <li>Developed machine learning models for sentiment classification and customer segmentation.</li>
-                </ul>
-              </div>
-            </article>
+                    {% for experience in experience_list %}
+                    <article class="timeline-item reveal">
 
-            <article class="timeline-item reveal">
-              <div class="timeline-item__logo">
-                <img src="static/img/inti.jpg" alt="INTI logo">
-              </div>
-              <div class="timeline-item__body">
-                <h3 class="timeline-item__title">Indonesia Technology &amp; Innovation (INTI) Asia Expo 2026</h3>
-                <p class="timeline-item__role">Volunteer</p>
-                <p class="timeline-item__date">Aug 2026</p>
-                <ul class="timeline-item__list">
-                  <li>Assisted assigned speakers throughout the event, coordinating schedules, logistics, and event flow.</li>
-                </ul>
-              </div>
-            </article>
+                        <div class="timeline-item__logo">
+                            {% if experience.title == "COMPFEST 18" %}
+                                <img src="static/img/compfest.webp" alt="COMPFEST logo">
+                            {% elif experience.title == "PT Vinix Seven Aurum" %}
+                                <img src="static/img/vinix.jpg" alt="PT Vinix logo">
+                            {% elif experience.title == "Indonesia Technology & Innovation (INTI) Asia Expo 2026" %}
+                                <img src="static/img/inti.jpg" alt="INTI logo">
+                            {% elif experience.title == "MOONZHER Olympiad Science Club" %}
+                                <img src="static/img/moscopic.jpg" alt="Moscopic logo">
+                            {% endif %}
+                        </div>
 
-            <article class="timeline-item reveal">
-              <div class="timeline-item__logo">
-                <img src="static/img/moscopic.jpg" alt="Moscopic logo">
-              </div>
-              <div class="timeline-item__body">
-                <h3 class="timeline-item__title">Moonzher Olympiad Science Club</h3>
-                <p class="timeline-item__role">Coordinator and Tutor of Economics</p>
-                <p class="timeline-item__date">Oct 2023 - Feb 2024</p>
-                <ul class="timeline-item__list">
-                  <li>Manage and record member attendance.</li>
-                  <li>Monitor and evaluate student performance and scores.</li>
-                  <li>Teach essential economics materials and provide exercises, pre-test, and post-test.</li>
-                </ul>
-              </div>
-            </article>
+                        <div class="timeline-item__body">
 
-          </div>
+                            <h3 class="timeline-item__title">
+                                {{ experience.title }}
+                            </h3>
+
+                            <p class="timeline-item__date">
+                                {{ experience.started_at|date:"M Y" }}
+                                -
+                                {% if experience.is_ongoing %}
+                                    Present
+                                {% else %}
+                                    {{ experience.ended_at|date:"M Y" }}
+                                {% endif %}
+                            </p>
+
+                            <ul class="timeline-item__list">
+                                <li>{{ experience.description }}</li>
+                            </ul>
+                        </div>
+                    </article>
+                    {% endfor %}
+
+                </div>
+            </div>
         </div>
-      </div>
 
       <div class="exp-edu__col">
             <h2 class="section-heading">Education</h2>

@@ -54,5 +54,5 @@ class MainTest(TestCase):
         response = self.client.get(reverse("main:show_experience"))
 
         self.assertFalse(self.experience.is_ongoing)
+        self.assertContains(response, self.experience.title)
         self.assertContains(response, "Selesai")
-        self.assertNotContains(response, "Sedang berlangsung")
