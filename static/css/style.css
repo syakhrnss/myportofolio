@@ -519,7 +519,7 @@ a { color: inherit; text-decoration: none; }
 
 .projects{
     position:relative;
-    padding: var(--space-xxxl) var(--space-l);
+    padding: 160px var(--space-l) var(--space-xxxl);
     text-align:center;
   }
   .projects__glow{ width:700px; height:700px; top:15%; left:35%; }
@@ -1045,4 +1045,274 @@ a { color: inherit; text-decoration: none; }
 
 .experience-description li {
     margin-bottom: 0.4rem;
+}
+
+.projects .container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.projects__intro {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto 60px;
+    text-align: center;
+}
+
+.projects__title {
+    margin: 0 0 12px;
+    text-align: center;
+}
+
+.projects__subtitle {
+    margin: 0;
+    color: var(--color-white-70);
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* PROJECTS HOME CAROUSEL */
+
+.projects-preview-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.project-cards--scroll {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 30px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 10px 65px 30px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.project-cards--scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.project-cards--scroll .project-card {
+    position: relative;
+    flex: 0 0 600px;
+    width: 600px;
+    min-width: 600px;
+    height: 540px;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    overflow: visible;
+}
+
+.project-cards--scroll .project-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    min-height: 100px;
+}
+
+.project-cards--scroll .project-card__number {
+    flex: 0 0 90px;
+    font-size: 28px;
+    padding-top: 5px;
+}
+
+.project-cards--scroll .project-card__heading {
+    min-width: 0;
+    padding-top: 15px;
+}
+
+.project-cards--scroll .project-card__title {
+    font-size: 23px;
+    line-height: 1.15;
+    margin: 0 0 7px;
+}
+
+.project-cards--scroll .project-card__subtitle {
+    font-size: 15px;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.project-cards--scroll .project-card__body {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+    gap: 22px;
+    padding: 20px 28px 25px;
+}
+
+.project-cards--scroll .project-card__frame {
+    width: 100%;
+    margin: 0;
+}
+
+.project-cards--scroll .project-card__frame-inner {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.project-cards--scroll .project-card__frame-inner img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.project-cards--scroll .project-card__description {
+    padding-top: 2px;
+}
+
+.project-cards--scroll .project-card__desc-label {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.project-cards--scroll .project-card__desc-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.project-cards--scroll .project-card__arrow {
+    position: absolute;
+    top: 50%;
+    right: -21px;
+    transform: translateY(-50%);
+    z-index: 20;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: white;
+    color: #08052f;
+
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 700;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18);
+
+    transition: transform 0.2s ease;
+}
+
+.project-cards--scroll .project-card__arrow:hover {
+    transform: translateY(-50%) scale(1.08);
+}
+
+.project-cards--scroll .projects-see-all {
+    flex: 0 0 600px;
+    width: 600px;
+    min-width: 600px;
+    height: 540px;
+
+    box-sizing: border-box;
+    border-radius: 28px;
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    text-decoration: none;
+    color: #08052f;
+
+    scroll-snap-align: start;
+}
+
+.project-cards--scroll .projects-see-all__label {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.project-cards--scroll .projects-see-all__arrow {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .project-cards--scroll {
+        gap: 20px;
+        padding-left: 45px;
+        padding-right: 45px;
+        padding-bottom: 30px;
+    }
+
+    .project-cards--scroll .project-card {
+        flex: 0 0 85vw;
+        width: 85vw;
+        min-width: 85vw;
+        height: auto;
+        min-height: 560px;
+    }
+
+    .project-cards--scroll .projects-see-all {
+        flex: 0 0 85vw;
+        width: 85vw;
+        min-width: 85vw;
+        height: 560px;
+    }
+
+    .project-cards--scroll .project-card__header {
+        min-height: 90px;
+        gap: 12px;
+    }
+
+    .project-cards--scroll .project-card__number {
+        flex: 0 0 65px;
+        font-size: 26px;
+        padding-top: 5px;
+    }
+
+    .project-cards--scroll .project-card__heading {
+        padding-top: 15px;
+    }
+
+    .project-cards--scroll .project-card__title {
+        font-size: 21px;
+    }
+
+    .project-cards--scroll .project-card__subtitle {
+        font-size: 14px;
+    }
+
+    .project-cards--scroll .project-card__body {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 20px 22px 25px;
+    }
+
+    .project-cards--scroll .project-card__desc-label {
+        font-size: 13px;
+        margin-bottom: 7px;
+    }
+
+    .project-cards--scroll .project-card__desc-text {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .project-cards--scroll .project-card__arrow {
+        width: 40px;
+        height: 40px;
+        right: -20px;
+        font-size: 20px;
+    }
 }
