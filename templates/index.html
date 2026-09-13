@@ -1,3 +1,4 @@
+{% load experience_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,10 +111,11 @@
                                     {{ experience.ended_at|date:"M Y" }}
                                 {% endif %}
                             </p>
-                            <ul class="timeline-item__list">
-                                <li>{{ experience.description }}</li>
+                            <ul class="experience-description">
+                                {% for item in experience.description|split_sentences %}
+                                    <li>{{ item }}.</li>
+                                    {% endfor %}
                             </ul>
-                        </div>
                     </article>
                     {% endfor %}
                 </div>
