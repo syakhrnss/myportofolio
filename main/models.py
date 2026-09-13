@@ -16,6 +16,10 @@ class Experience(models.Model):
     thumbnail = models.URLField(blank=True, null=True)
     started_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(blank=True, null=True)
+    role = models.CharField(max_length=100)
+    is_featured = models.BooleanField(default=False)
+    display_order = models.PositiveIntegerField(default=0)
+    
     def __str__(self):
         return self.title
     

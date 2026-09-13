@@ -70,16 +70,16 @@
     </section>
 
     <section id="experience" class="exp-edu">
-    <div class="glow glow--pink exp-edu__glow" aria-hidden="true"></div>
-    <div class="exp-edu__grid">
+      <div class="glow glow--pink exp-edu__glow" aria-hidden="true"></div>
 
-        <div class="exp-edu__col">
+        <div class="exp-edu__grid">
+            <div class="exp-edu__col">
 
-            <h2 class="section-heading">Experience</h2>
-            <div class="panel reveal">
-                <div class="timeline">
+              <h2 class="section-heading">Experience</h2>
+                <div class="panel reveal">
+                  <div class="timeline">
 
-                    {% for experience in experience_list %}
+                    {% for experience in featured_experiences %}
                     <article class="timeline-item reveal">
 
                         <div class="timeline-item__logo">
@@ -95,11 +95,12 @@
                         </div>
 
                         <div class="timeline-item__body">
-
                             <h3 class="timeline-item__title">
                                 {{ experience.title }}
                             </h3>
-
+                            <p class="timeline-item__role">
+                                {{ experience.role }}
+                            </p>
                             <p class="timeline-item__date">
                                 {{ experience.started_at|date:"M Y" }}
                                 -
@@ -109,15 +110,16 @@
                                     {{ experience.ended_at|date:"M Y" }}
                                 {% endif %}
                             </p>
-
                             <ul class="timeline-item__list">
                                 <li>{{ experience.description }}</li>
                             </ul>
                         </div>
                     </article>
                     {% endfor %}
-
                 </div>
+                <a href="{% url 'main:show_experience' %}" class="experience-see-all">
+                    See All My Experiences
+                </a>
             </div>
         </div>
 
