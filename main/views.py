@@ -7,6 +7,7 @@ def show_main(request):
     featured_experiences = Experience.objects.filter(
         is_featured=True
     ).order_by("display_order")
+    featured_projects = Project.objects.all()[:3]
 
     context = {
         "name": "Arsya",
@@ -17,6 +18,7 @@ def show_main(request):
             "Passionate about exploring data, technology, and innovation to solve real-world problems. "
         ),
         "featured_experiences": featured_experiences,
+        "featured_projects": featured_projects,
     }
     return render(request, "index.html", context)
 

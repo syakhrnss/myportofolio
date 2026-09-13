@@ -1,4 +1,6 @@
 {% load experience_filters %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -184,74 +186,49 @@
 
     <section id="projects" class="projects">
         <div class="glow glow--pink projects__glow" aria-hidden="true"></div>
-    <h2 class="section-heading projects__title">Projects</h2>
+        <h2 class="section-heading projects__title">Projects</h2>
 
-    <div class="project-cards">
+        <div class="projects-preview-wrapper">
+            <div class="project-cards project-cards--scroll">
+                {% for project in featured_projects %}
+                    <article id="project-{{ forloop.counter }}" class="project-card reveal">
+                        <div class="project-card__header">
+                            <div class="project-card__number">{{ forloop.counter|stringformat:"02d" }}</div>
+                            <div class="project-card__heading">
+                                <h3 class="project-card__title">{{ project.title }}</h3>
+                                <p class="project-card__subtitle">{{ project.subtitle }}</p>
+                            </div>
+                        </div>
 
-      <article class="project-card reveal">
-        <div class="project-card__header">
-          <div class="project-card__number">01</div>
-          <div class="project-card__heading">
-            <h3 class="project-card__title">Smart Road Crack Inspection System</h3>
-            <p class="project-card__subtitle">AI &amp; Deep Learning Bootcamp &mdash; FRG Universitas Brawijaya &middot; 2026</p>
-          </div>
-        </div>
-        <div class="project-card__body">
-          <div class="project-card__frame reveal reveal--zoom">
-            <div class="project-card__frame-inner">
-              <img src="static/img/project1.png" alt="Screenshot of the Smart Road Crack Inspection System interface">
+                        <div class="project-card__body">
+                            <div class="project-card__frame">
+                                <div class="project-card__frame-inner">
+                                    {% if project.image %}
+                                        <img src="{% static project.image %}" alt="Screenshot of {{ project.title }}">
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="project-card__description">
+                                <p class="project-card__desc-label">DESCRIPTION</p>
+                                <p class="project-card__desc-text">{{ project.description }}</p>
+                            </div>
+                        </div>
+
+                        {% if not forloop.last %}
+                            <a href="#project-{{ forloop.counter|add:'1' }}" class="project-card__arrow">→</a>
+                        {% else %}
+                            <a href="#project-see-all" class="project-card__arrow">→</a>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+
+                <a id="project-see-all" href="{% url 'main:show_projects' %}" class="projects-see-all">
+                    <span class="projects-see-all__label">See All My<br>Projects</span>
+                    <span class="projects-see-all__arrow">→</span>
+                </a>
             </div>
-          </div>
-          <div>
-            <p class="project-card__desc-label">Description</p>
-            <p class="project-card__desc-text">AI-powered road crack inspection system using a <strong>MobileNetV2-based U-Net architecture</strong> to perform semantic segmentation and identify crack regions from road images. The system analyzes detected cracks through metrics such as area, length, density, and severity.</p>
-          </div>
         </div>
-      </article>
-
-      <article class="project-card reveal">
-        <div class="project-card__header project-card__header--reverse">
-          <div class="project-card__number">02</div>
-          <div class="project-card__heading">
-            <h3 class="project-card__title">Marketplace Customer Review Sentiment Analysis</h3>
-            <p class="project-card__subtitle">Data Science Intern &mdash; PT Vinix Seven Aurum &middot; 2026</p>
-          </div>
-        </div>
-        <div class="project-card__body project-card__body--reverse">
-          <div class="project-card__frame reveal reveal--zoom">
-            <div class="project-card__frame-inner">
-              <img src="static/img/project2.png" alt="Screenshot of the Marketplace Customer Review Sentiment Analysis application">
-            </div>
-          </div>
-          <div>
-            <p class="project-card__desc-label">Description</p>
-            <p class="project-card__desc-text">Developed a machine learning application to classify Tokopedia customer reviews into positive, negative, or neutral sentiments using TF-IDF and Multinomial Naive Bayes, with an interactive Streamlit interface for sentiment prediction.</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-card reveal">
-        <div class="project-card__header">
-          <div class="project-card__number">03</div>
-          <div class="project-card__heading">
-            <h3 class="project-card__title">Kitchenware Sales Dashboard</h3>
-            <p class="project-card__subtitle">Karirnex Data Analyst Bootcamp &middot; 2026</p>
-          </div>
-        </div>
-        <div class="project-card__body">
-          <div class="project-card__frame reveal reveal--zoom">
-            <div class="project-card__frame-inner">
-              <img src="static/img/project3.png" alt="Screenshot of the Kitchenware Sales Dashboard">
-            </div>
-          </div>
-          <div>
-            <p class="project-card__desc-label">Description</p>
-            <p class="project-card__desc-text">Developed an interactive sales dashboard to analyze business performance, sales trends, product performance, and order completion metrics, transforming sales data into actionable insights for data-driven decision-making.</p>
-          </div>
-        </div>
-      </article>
-
-    </div>
     </section>
     <section id="contact" class="contact">
         <div class="glow glow--pink contact__glow" aria-hidden="true"></div>
