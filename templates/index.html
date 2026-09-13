@@ -214,12 +214,6 @@
                                 <p class="project-card__desc-text">{{ project.description }}</p>
                             </div>
                         </div>
-
-                        {% if not forloop.last %}
-                            <a href="#project-{{ forloop.counter|add:'1' }}" class="project-card__arrow">→</a>
-                        {% else %}
-                            <a href="#project-see-all" class="project-card__arrow">→</a>
-                        {% endif %}
                     </article>
                 {% endfor %}
 
