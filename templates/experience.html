@@ -1,3 +1,4 @@
+{% load experience_filters %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -68,9 +69,14 @@
                                 </div>
  
                                 <h2>{{ experience.title }}</h2>
-                                <p class="experience-description">
-                                    {{ experience.description }}
+                                <p class="timeline-node__role">
+                                    {{ experience.role }}
                                 </p>
+                                <ul class="experience-description">
+                                    {% for item in experience.description|split_sentences %}
+                                        <li>{{ item }}.</li>
+                                        {% endfor %}
+                                </ul>
  
                                 {% if experience.is_ongoing %}
                                     <p class="experience-status timeline-node__status timeline-node__status--ongoing">Sedang berlangsung</p>
