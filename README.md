@@ -1,10 +1,9 @@
 ## Personal Portofolio Website - Arsya Khairunissa Budiman
 
-| | |
 |---|---|
 | **Name** | Arsya Khairunissa Budiman |
-| **NPM** | 2506537606 |
-| **Class** | PBP E |
+| **NPM** | 2506544076 |
+| **Class** | Pemrograman Berbasis Platform (PBP) E |
 | **Faculty** | Faculty of Computer Science, Universitas Indonesia |
 | **Lecturer** | Daya Adianto, S.Kom., M.Kom. |
 
@@ -13,6 +12,14 @@
 
 ## About the Project
 This project is a personal portfolio website developed to showcase my profile, experiences, projects, and other relevant information in one place. The website is built using Django, HTML5, and CSS3, with project and experience data managed through Django models and displayed dynamically using templates.
+
+## Weekly Progress
+
+| Week | Progress |
+|---|---|
+| 1 | Set up the Django project, created the Git repository, and installed the required dependencies. |
+| 2 | Designed and developed the initial portfolio website using HTML and CSS, including the About, Experience, Education, Projects, and Contact sections. |
+| 3 | Implemented the Model-View-Template (MVT) architecture for the Experience and Projects sections, including models, views, URL routing, templates, and database integration. |
 
 ## Documentation & AI Disclosure + Reflective Questions
 
