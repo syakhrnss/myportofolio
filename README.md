@@ -1,5 +1,6 @@
 ## Personal Portofolio Website - Arsya Khairunissa Budiman
 
+| Information | Details |
 |---|---|
 | **Name** | Arsya Khairunissa Budiman |
 | **NPM** | 2506544076 |
