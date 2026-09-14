@@ -11,6 +11,7 @@ def show_main(request):
 
     context = {
         "name": "Arsya",
+        "full_name": "Arsya Khairunissa Budiman",
         "npm": "2506544076",
         "study_program": "Information Systems",
         "bio": (
@@ -26,6 +27,7 @@ def show_main(request):
 def show_experience(request):
     context = {
         "name": "Arsya",
+        "full_name": "Arsya Khairunissa Budiman",
         "experience_list": Experience.objects.all().order_by("-started_at"),
     }
     return render(request, "experience.html", context)
@@ -35,6 +37,7 @@ def show_projects(request):
 
     context = {
         "name": "Arsya",
+        "full_name": "Arsya Khairunissa Budiman",
         "project_list": project_list,
     }
 
