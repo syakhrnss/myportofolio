@@ -1,90 +1,138 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ name }} - Portfolio</title>
+{% block meta %}
+    <title>Projects - {{ name }}</title>
+{% endblock meta %}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
+{% block content %}
+<main>
+    <section class="projects" id="projects">
+        <div class="glow glow--pink projects__glow" aria-hidden="true"></div>
 
-<body>
+        <div class="container">
 
-    <header>
-        <nav class="navbar" aria-label="Main navigation">
-            <input type="checkbox" class="navbar__checkbox" id="navToggle">
-            <label class="navbar__toggle" for="navToggle" aria-label="Toggle navigation menu">
-                <span></span><span></span><span></span>
-            </label>
-            <ul class="navbar__list" id="navList">
-                <li><a class="navbar__link" href="{% url 'main:show_main' %}">Profile</a></li>
-                <li><a class="navbar__link" href="{% url 'main:show_main' %}#about">About</a></li>
-                <li><a class="navbar__link" href="{% url 'main:show_experience' %}">Experience</a></li>
-                <li><a class="navbar__link" href="{% url 'main:show_projects' %}">Projects</a></li>
-                <li><a class="navbar__link" href="{% url 'main:show_main' %}#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+            <div class="projects__intro">
+                <p class="section-kicker">My Projects</p>
 
-    <main>
-        <section class="projects" id="projects">
-            <div class="glow glow--pink projects__glow" aria-hidden="true"></div>
+                <h1 class="section-heading projects__title">
+                    Projects
+                </h1>
 
-            <div class="container">
-                <div class="projects__intro">
-                    <p class="section-kicker">My Projects</p>
-                    <h1 class="section-heading projects__title">Projects</h1>
-                    <p class="projects__subtitle">
-                        A collection of projects I have worked on through bootcamp, internship, and independent exploration.
-                    </p>
-                </div>
+                <p class="projects__subtitle">
+                    A collection of projects I have worked on through
+                    bootcamp, internship, and independent exploration.
+                </p>
 
-                <div class="project-cards">
-                    {% for project in project_list %}
-                        <article class="project-card reveal">
-                            <div class="project-card__header {% if forloop.counter|divisibleby:2 %}project-card__header--reverse{% endif %}">
-                                <div class="project-card__number">
-                                    {{ forloop.counter|stringformat:"02d" }}
-                                </div>
-
-                                <div class="project-card__heading">
-                                    <h3 class="project-card__title">{{ project.title }}</h3>
-                                    <p class="project-card__subtitle">{{ project.subtitle }}</p>
-                                </div>
-                            </div>
-
-                            <div class="project-card__body {% if forloop.counter|divisibleby:2 %}project-card__body--reverse{% endif %}">
-                                <div class="project-card__frame">
-                                    <div class="project-card__frame-inner">
-                                        {% if project.image %}
-                                            <img src="{% static project.image %}" alt="Screenshot of {{ project.title }}">
-                                        {% endif %}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <p class="project-card__desc-label">Description</p>
-                                    <p class="project-card__desc-text">{{ project.description }}</p>
-                                </div>
-                            </div>
-                        </article>
-                    {% empty %}
-                        <p class="empty-state">Belum ada project yang ditambahkan.</p>
-                    {% endfor %}
+                <div class="project-add-wrapper">
+                    <a href="{% url 'main:create_project' %}"
+                    class="button project-add-button">
+                        <span aria-hidden="true">+</span>
+                        Add Project
+                    </a>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <footer class="site-footer">
-        <p>&copy; 2026 {{ full_name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
-    </footer>
+            <form method="get"
+                action="{% url 'main:show_projects' %}"
+                class="project-search">
 
-</body>
+                <input type="search"
+                    name="title"
+                    value="{{ title_query }}"
+                    placeholder="Search project"
+                    class="project-search__input"
+                    aria-label="Search project">
 
-</html>
+                <button type="submit" class="button">
+                    Search
+                </button>
+            </form>
+
+            <div class="project-cards">
+
+                {% for project in project_list %}
+
+                    <article class="project-card reveal">
+
+                        <div class="project-card__header
+                                    {% if forloop.counter|divisibleby:2 %}
+                                        project-card__header--reverse
+                                    {% endif %}">
+
+                            <div class="project-card__number">
+                                {{ forloop.counter|stringformat:"02d" }}
+                            </div>
+
+                            <div class="project-card__heading">
+
+                                <h3 class="project-card__title">
+                                    {{ project.title }}
+                                </h3>
+
+                                <p class="project-card__subtitle">
+                                    {{ project.subtitle }}
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="project-card__body
+                                    {% if forloop.counter|divisibleby:2 %}
+                                        project-card__body--reverse
+                                    {% endif %}">
+
+                            <div class="project-card__frame">
+
+                                <div class="project-card__frame-inner">
+
+                                    {% if project.image %}
+                                        <img src="/static/{{ project.image }}"
+                                             alt="Screenshot of {{ project.title }}">
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                            <div>
+
+                                <p class="project-card__desc-label">
+                                    Description
+                                </p>
+
+                                <p class="project-card__desc-text">
+                                    {{ project.description }}
+                                </p>
+
+                                <div class="project-actions">
+
+                                    {% include "components/project_delete_modal.html" with project=project %}
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </article>
+
+                {% empty %}
+
+                    {% if title_query %}
+                        <p class="empty-state">
+                            Tidak ada project dengan nama tersebut.
+                        </p>
+                    {% else %}
+                        <p class="empty-state">
+                            Belum ada project yang ditambahkan.
+                        </p>
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </section>
+</main>
+{% endblock content %}
