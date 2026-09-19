@@ -14,7 +14,7 @@ class Experience(models.Model):
     description = models.TextField()
     category = models.CharField(max_length=20, choices=EXPERIENCE_CHOICES, default='internship')
     thumbnail = models.URLField(blank=True, null=True)
-    started_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField()
     ended_at = models.DateTimeField(blank=True, null=True)
     role = models.CharField(max_length=100)
     is_featured = models.BooleanField(default=False)
