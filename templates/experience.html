@@ -58,6 +58,10 @@
                                 {% else %}
                                     <p class="experience-status timeline-node__status timeline-node__status--done">Selesai</p>
                                 {% endif %}
+
+                                <a href="{% url 'main:edit_experience' experience.id %}" class="button">
+                                    Edit
+                                </a>
                             </div>
                         </article>
                     {% endfor %}
