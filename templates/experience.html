@@ -62,6 +62,16 @@
                                 <a href="{% url 'main:edit_experience' experience.id %}" class="button">
                                     Edit
                                 </a>
+
+                                <form method="post"
+                                action="{% url 'main:delete_experience' experience.id %}"
+                                style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="button button-danger">
+                                    Delete
+                                </button>
+                            </form>
+
                             </div>
                         </article>
                     {% endfor %}
