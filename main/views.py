@@ -29,10 +29,24 @@ def show_main(request):
 
 
 def show_experience(request):
+    json_response = get_experiences_json(request)
+
+    experiences = serializers.deserialize(
+        "json",
+        json_response.content.decode("utf-8"),
+    )
+
+    experiences = [experience.object for experience in experiences]
+
+    experiences.sort(
+        key=lambda experience: experience.started_at,
+        reverse=True,
+    )
+
     context = {
         "name": "Arsya",
         "full_name": "Arsya Khairunissa Budiman",
-        "experience_list": Experience.objects.all().order_by("-started_at"),
+        "experience_list": experiences,
     }
     return render(request, "experience.html", context)
 
@@ -131,3 +145,16 @@ def delete_experience(request, experience_id):
         messages.success(request, "Pengalaman berhasil dihapus!")
 
     return redirect("main:show_experience")
+
+def get_experiences_json(request):
+    experiences = Experience.objects.all()
+
+    experiences_json = serializers.serialize(
+        "json",
+        experiences,
+    )
+
+    return HttpResponse(
+        experiences_json,
+        content_type="application/json",
+    )
