@@ -16,7 +16,55 @@
                     along with their current status.
                 </p>
 
-                <a href="{% url 'main:create_experience' %}" class="button"> + Add Experience </a>
+                <div class="experience-add-wrapper">
+                    <a href="{% url 'main:create_experience' %}"
+                    class="button">
+                        + Add Experience
+                    </a>
+                </div>
+            </div>
+
+            <form method="get"
+                action="{% url 'main:show_experience' %}"
+                class="project-search">
+
+                <input type="search"
+                    name="title"
+                    value="{{ title_query }}"
+                    placeholder="Search experience"
+                    class="project-search__input"
+                    aria-label="Search experience">
+
+                <button type="submit" class="button">
+                    Search
+                </button>
+            </form>
+
+            <div class="experience-filters">
+                <a href="{% url 'main:show_experience' %}"
+                class="experience-filter {% if not category_query %}experience-filter--active{% endif %}">
+                    All
+                </a>
+
+                <a href="?category=internship"
+                class="experience-filter {% if category_query == 'internship' %}experience-filter--active{% endif %}">
+                    Internship
+                </a>
+
+                <a href="?category=volunteer"
+                class="experience-filter {% if category_query == 'volunteer' %}experience-filter--active{% endif %}">
+                    Volunteer
+                </a>
+
+                <a href="?category=committee"
+                class="experience-filter {% if category_query == 'committee' %}experience-filter--active{% endif %}">
+                    Committee
+                </a>
+
+                <a href="?category=organization"
+                class="experience-filter {% if category_query == 'organization' %}experience-filter--active{% endif %}">
+                    Organization
+                </a>
             </div>
             
             {% if experience_list %}
@@ -35,45 +83,67 @@
                                     <span class="timeline-node__badge experience-category">
                                         {{ experience.get_category_display }}
                                     </span>
+
                                     <span class="timeline-node__date">
                                         {{ experience.started_at|date:"M Y" }}
-                                        &ndash;
-                                        {% if experience.is_ongoing %}Sekarang{% else %}
-                                        {{ experience.ended_at|date:"M Y" }}{% endif %}
+                                        -
+                                        {% if experience.is_ongoing %}
+                                            Sekarang
+                                        {% else %}
+                                            {{ experience.ended_at|date:"M Y" }}
+                                        {% endif %}
                                     </span>
                                 </div>
- 
-                                <h2>{{ experience.title }}</h2>
+
+                                <h2>
+                                    {{ experience.title }}
+                                </h2>
+
                                 <p class="timeline-node__role">
                                     {{ experience.role }}
                                 </p>
+
+                                {% if experience.is_ongoing %}
+                                    <p class="experience-status timeline-node__status timeline-node__status--ongoing">
+                                        Sedang berlangsung
+                                    </p>
+                                {% else %}
+                                    <p class="experience-status timeline-node__status timeline-node__status--done">
+                                        Selesai
+                                    </p>
+                                {% endif %}
+
                                 <ul class="experience-description">
                                     {% for item in experience.description|split_sentences %}
                                         <li>{{ item }}.</li>
-                                        {% endfor %}
+                                    {% endfor %}
                                 </ul>
- 
-                                {% if experience.is_ongoing %}
-                                    <p class="experience-status timeline-node__status timeline-node__status--ongoing">Sedang berlangsung</p>
-                                {% else %}
-                                    <p class="experience-status timeline-node__status timeline-node__status--done">Selesai</p>
-                                {% endif %}
 
-                                <a href="{% url 'main:edit_experience' experience.id %}" class="button">
-                                    Edit
-                                </a>
+                                <div class="experience-actions">
+                                    <a href="{% url 'main:edit_experience' experience.id %}"
+                                    class="button">
+                                        Edit
+                                    </a>
 
-                                <form method="post"
-                                action="{% url 'main:delete_experience' experience.id %}"
-                                style="display: inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="button button-danger">
-                                    Delete
-                                </button>
+                                    {% include "components/experience_delete_modal.html" with experience=experience %}
+                                </div>
                             </form>
 
                             </div>
                         </article>
+                    
+                    {% empty %}
+
+                        {% if title_query %}
+                            <p class="empty-state">
+                                Tidak ada experience dengan nama tersebut.
+                            </p>
+                        {% else %}
+                            <p class="empty-state">
+                                Belum ada experience yang ditambahkan.
+                            </p>
+                        {% endif %}
+
                     {% endfor %}
                 </div>
             {% else %}
