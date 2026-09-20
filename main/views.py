@@ -43,10 +43,15 @@ def show_experience(request):
         reverse=True,
     )
 
+    title_query = request.GET.get("title", "").strip()
+    category_query = request.GET.get("category", "").strip()
+
+
     context = {
         "name": "Arsya",
         "full_name": "Arsya Khairunissa Budiman",
         "experience_list": experiences,
+        "title_query": title_query,
     }
     return render(request, "experience.html", context)
 
@@ -147,7 +152,20 @@ def delete_experience(request, experience_id):
     return redirect("main:show_experience")
 
 def get_experiences_json(request):
+    title_query = request.GET.get("title", "").strip()
+    category_query = request.GET.get("category", "").strip()
+
     experiences = Experience.objects.all()
+
+    if title_query:
+        experiences = experiences.filter(
+            title__icontains=title_query
+        )
+
+    if category_query:
+        experiences = experiences.filter(
+            category=category_query
+        )
 
     experiences_json = serializers.serialize(
         "json",
