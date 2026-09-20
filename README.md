@@ -21,6 +21,7 @@ This project is a personal portfolio website developed to showcase my profile, e
 | 1 | Set up the Django project, created the Git repository, and installed the required dependencies. |
 | 2 | Designed and developed the initial portfolio website using HTML and CSS, including the About, Experience, Education, Projects, and Contact sections. |
 | 3 | Implemented the Model-View-Template (MVT) architecture for the Experience and Projects sections, including models, views, URL routing, templates, and database integration. |
+| 4 | Implemented complete CRUD functionality for the Experience and Projects sections using ModelForm, including Create, Update, and Delete features. Implemented JSON serialization and deserialization with JSON data delivery endpoints. Added search and category filtering for Experience, along with confirmation pop-ups for data deletion. |
 
 ## Documentation & AI Disclosure + Reflective Questions
 
