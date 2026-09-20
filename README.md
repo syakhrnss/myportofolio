@@ -28,3 +28,4 @@ This project is a personal portfolio website developed to showcase my profile, e
 |---|---|---|
 | 1 | Static Web with HTML5 and CSS3 | [Tugas1.md](/reflection/TUGAS1.md) |
 | 2 | Implementing Model-View-Template (MVT) in Django | [Tugas2.md](/reflection/TUGAS2.md) |
+| 3 | Form & Data Delivery | [Tugas3.md](/reflection/TUGAS3.md) |
