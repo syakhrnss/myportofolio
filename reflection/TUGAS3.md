@@ -30,6 +30,8 @@ Beberapa hal yang didiskusikan dengan AI selama Tugas 3 antara lain penggunaan `
 Biasanya saya mengerjakan dan menulis kode sendiri terlebih dahulu berdasarkan requirements tugas dan pemahaman saya terhadap materi. Setelah itu, saya menggunakan AI sebagai alat bantu untuk berdiskusi ketika terdapat bagian yang belum saya pahami, ingin memastikan implementasi sudah sesuai, atau menemukan error yang belum dapat saya selesaikan sendiri. Saya memberikan potongan kode yang sudah saya tulis, screenshot hasil implementasi, atau pesan error kepada AI untuk mendapatkan penjelasan dan feedback. Dari diskusi tersebut, saya mencoba memahami penyebab masalah dan cara kerja solusinya sebelum melakukan perubahan pada project. Saya juga melakukan testing sendiri terhadap fitur yang dibuat, seperti Create, Update, Delete, JSON Data Delivery, search, dan filter experience. Jika solusi atau feedback yang diberikan belum sesuai dengan struktur project atau requirements tugas, saya melakukan penyesuaian sendiri dan menguji kembali hasilnya.
 
 ## AI Chat / Prompting History 
+https://chatgpt.com/share/6aaf6904-50f4-83ec-afb2-ad140190c42b
+
 | Tahap | Penggunaan AI | 
 |---|---| 
 | ModelForm | Diskusi tentang penggunaan `ModelForm`, field yang dapat dimasukkan ke form, serta hubungan form dengan model `Experience`. | 
