@@ -176,7 +176,7 @@
                             <div class="project-card__frame">
                                 <div class="project-card__frame-inner">
                                     {% if project.image %}
-                                        <img src="{% static project.image %}" alt="Screenshot of {{ project.title }}">
+                                        <img src="{{ project.image }}" alt="Screenshot of {{ project.title }}">
                                     {% endif %}
                                 </div>
                             </div>
