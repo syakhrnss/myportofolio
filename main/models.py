@@ -30,7 +30,7 @@ class Experience(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255)
-    image = models.CharField(max_length=255, blank=True)
+    image = models.URLField(max_length=500, blank=True)
     description = models.TextField()
 
     def __str__(self):

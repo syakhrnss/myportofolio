@@ -34,9 +34,9 @@ class ProjectForm(ModelForm):
                     "maxlength": 255,
                 }
             ),
-            "image": TextInput(
+            "image": URLInput(
                 attrs={
-                    "placeholder": "img/vinix.png",
+                    "placeholder": "https://example.com/image.jpg",
                     "maxlength": 255,
                 }
             ),
