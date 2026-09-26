@@ -28,6 +28,7 @@
                 action="{% url 'main:show_experience' %}"
                 class="project-search">
 
+                <div class="project-search__row">
                 <input type="search"
                     name="title"
                     value="{{ title_query }}"
@@ -38,6 +39,7 @@
                 <button type="submit" class="button">
                     Search
                 </button>
+                </div>
             </form>
 
             <div class="experience-filters">

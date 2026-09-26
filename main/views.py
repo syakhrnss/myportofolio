@@ -75,6 +75,14 @@ def show_projects(request):
 
     title_query = request.GET.get("title", "").strip()
 
+    sort_query = request.GET.get("sort", "")
+
+    if sort_query == "stars":
+        projects.sort(
+            key=lambda project: project.starred_by.count(),
+            reverse=True,
+        )
+
     is_editor = request.user.groups.filter(name="Editor").exists()
 
     context = {

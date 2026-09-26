@@ -39,17 +39,38 @@
                 action="{% url 'main:show_projects' %}"
                 class="project-search">
 
-                <input type="search"
-                    name="title"
-                    value="{{ title_query }}"
-                    placeholder="Search project"
-                    class="project-search__input"
-                    aria-label="Search project">
+                <div class="project-search__row">
+                    <input type="search"
+                        name="title"
+                        value="{{ title_query }}"
+                        placeholder="Search project"
+                        class="project-search__input"
+                        aria-label="Search project">
 
-                <button type="submit" class="button">
-                    Search
-                </button>
+                    <button type="submit" class="button">
+                        Search
+                    </button>
+                </div>
+
+                <div class="project-sort">
+                    <label for="sort">Sort by:</label>
+
+                    <select id="sort"
+                        name="sort"
+                        class="project-sort__select">
+
+                        <option value="" {% if not sort_query %}selected{% endif %}>
+                            Default
+                        </option>
+
+                        <option value="stars" {% if sort_query == "stars" %}selected{% endif %}>
+                            Most Starred
+                        </option>
+                    </select>
+                </div>
+
             </form>
+
 
             <div class="project-cards">
 
