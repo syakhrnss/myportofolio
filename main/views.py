@@ -75,11 +75,14 @@ def show_projects(request):
 
     title_query = request.GET.get("title", "").strip()
 
+    is_editor = request.user.groups.filter(name="Editor").exists()
+
     context = {
         "name": "Arsya",
         "full_name": "Arsya Khairunissa Budiman",
         "project_list": projects,
         "title_query": title_query,
+        "is_editor": is_editor,
     }
 
     return render(request, "projects.html", context)
@@ -102,9 +105,14 @@ def create_project(request):
     }
     return render(request, "projects_form.html", context)
 
+@login_required(login_url="/login/")
 def edit_project(request, project_id):
-    project = get_object_or_404(Project, pk=project_id)
+    is_editor = request.user.groups.filter(name="Editor").exists()
 
+    if not request.user.is_superuser and not is_editor:
+        raise PermissionDenied
+    
+    project = get_object_or_404(Project, pk=project_id)
     form = ProjectForm(request.POST or None, instance=project)
 
     if request.method == "POST" and form.is_valid():
