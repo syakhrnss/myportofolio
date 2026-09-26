@@ -11,7 +11,11 @@
         <h2 class="hero__subtitle">Data Enthusiast</h2>
 
         <div class="hero__row">
-            <p class="hero__blurb">Second-year {{ study_program }} student at Universitas Indonesia <br>NPM : {{ npm }} </br></p>
+            <p class="hero__blurb">
+                <span>Second-year {{ study_program }} student at Universitas Indonesia</span>
+                <br><br>
+                <span> NPM : {{ npm }} </span>
+            </p>
 
             <div class="hero__photo-col">
                 <div class="glow glow--pink hero__photo-glow" aria-hidden="true"></div>
@@ -25,7 +29,12 @@
             </div>
         </div>
 
-        <p class="hero__blurb hero__blurb--right">Exploring Data Analysis, Business Intelligence, Data Science, AI, and Machine Learning</p>
+        <p class="hero__blurb hero__blurb--right">
+            <span>Exploring Data Analysis, Business Intelligence, Data Science, AI, and Machine Learning</span>
+            <br><br>
+            <span class="hero_subtext">Sesi Terakhir Login : {{ last_login }}</span>
+        </p>
+
         </div>
     </section>
 

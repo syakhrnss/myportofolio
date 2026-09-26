@@ -25,6 +25,21 @@
             <li><a class="navbar__link" href="{% url 'main:show_experience' %}">Experience</a></li>
             <li><a class="navbar__link" href="{% url 'main:show_projects' %}">Projects</a></li>
             <li><a class="navbar__link" href="{% url 'main:show_main' %}#contact">Contact</a></li>
+            {% if user.is_authenticated %}
+            <li>
+                <span class="navbar__link nav-user">{{ user.username }}</span>
+            </li>
+            <li>
+                <a class="navbar__link" href="{% url 'main:logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li>
+                <a class="navbar__link" href="{% url 'main:login' %}">Login</a>
+            </li>
+            <li>
+                <a class="navbar__link" href="{% url 'main:register' %}">Register</a>
+            </li>
+        {% endif %}
         </ul>
     </nav>
   </header>
