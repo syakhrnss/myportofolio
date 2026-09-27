@@ -57,7 +57,8 @@
 
                     <select id="sort"
                         name="sort"
-                        class="project-sort__select">
+                        class="project-sort__select"
+                        onchange="this.form.submit()">
 
                         <option value="" {% if not sort_query %}selected{% endif %}>
                             Default

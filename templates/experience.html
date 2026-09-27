@@ -31,45 +31,71 @@
                 class="project-search">
 
                 <div class="project-search__row">
-                <input type="search"
-                    name="title"
-                    value="{{ title_query }}"
-                    placeholder="Search experience"
-                    class="project-search__input"
-                    aria-label="Search experience">
+                    <input type="search"
+                        name="title"
+                        value="{{ title_query }}"
+                        placeholder="Search experience"
+                        class="project-search__input"
+                        aria-label="Search experience">
 
-                <button type="submit" class="button">
-                    Search
-                </button>
+                    <button type="submit" class="button">
+                        Search
+                    </button>
                 </div>
+
+                <div class="experience-filter-row">
+
+                    <div class="experience-filters">
+                        <a href="{% url 'main:show_experience' %}"
+                        class="experience-filter {% if not category_query %}experience-filter--active{% endif %}">
+                            All
+                        </a>
+
+                        <a href="?category=internship"
+                        class="experience-filter {% if category_query == 'internship' %}experience-filter--active{% endif %}">
+                            Internship
+                        </a>
+
+                        <a href="?category=volunteer"
+                        class="experience-filter {% if category_query == 'volunteer' %}experience-filter--active{% endif %}">
+                            Volunteer
+                        </a>
+
+                        <a href="?category=committee"
+                        class="experience-filter {% if category_query == 'committee' %}experience-filter--active{% endif %}">
+                            Committee
+                        </a>
+
+                        <a href="?category=organization"
+                        class="experience-filter {% if category_query == 'organization' %}experience-filter--active{% endif %}">
+                            Organization
+                        </a>
+                    </div>
+
+                    <div class="experience-sort">
+                        <label for="sort">Sort by:</label>
+
+                        <select id="sort"
+                                name="sort"
+                                class="experience-sort__select"
+                                onchange="this.form.submit()">
+
+                            <option value=""
+                                {% if not sort_query %}selected{% endif %}>
+                                Default
+                            </option>
+
+                            <option value="stars"
+                                {% if sort_query == "stars" %}selected{% endif %}>
+                                Most Starred
+                            </option>
+
+                        </select>
+                    </div>
+
+                </div>
+
             </form>
-
-            <div class="experience-filters">
-                <a href="{% url 'main:show_experience' %}"
-                class="experience-filter {% if not category_query %}experience-filter--active{% endif %}">
-                    All
-                </a>
-
-                <a href="?category=internship"
-                class="experience-filter {% if category_query == 'internship' %}experience-filter--active{% endif %}">
-                    Internship
-                </a>
-
-                <a href="?category=volunteer"
-                class="experience-filter {% if category_query == 'volunteer' %}experience-filter--active{% endif %}">
-                    Volunteer
-                </a>
-
-                <a href="?category=committee"
-                class="experience-filter {% if category_query == 'committee' %}experience-filter--active{% endif %}">
-                    Committee
-                </a>
-
-                <a href="?category=organization"
-                class="experience-filter {% if category_query == 'organization' %}experience-filter--active{% endif %}">
-                    Organization
-                </a>
-            </div>
             
             {% if experience_list %}
                 <div class="timeline-track">

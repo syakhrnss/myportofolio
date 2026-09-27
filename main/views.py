@@ -47,13 +47,20 @@ def show_experience(request):
 
     experiences = [experience.object for experience in experiences]
 
-    experiences.sort(
-        key=lambda experience: experience.started_at,
-        reverse=True,
-    )
-
     title_query = request.GET.get("title", "").strip()
     category_query = request.GET.get("category", "").strip()
+    sort_query = request.GET.get("sort", "")
+
+    if sort_query == "stars":
+        experiences.sort(
+            key=lambda project: project.starred_by.count(),
+            reverse=True,
+        )
+    else:
+        experiences.sort(
+        key=lambda experience: experience.started_at,
+        reverse=True,
+        )
 
     is_editor = request.user.groups.filter(name="Editor").exists()
 
@@ -62,6 +69,8 @@ def show_experience(request):
         "full_name": "Arsya Khairunissa Budiman",
         "experience_list": experiences,
         "title_query": title_query,
+        "category_query" : category_query,
+        "sort_query" : sort_query,
         "is_editor": is_editor,
     }
     return render(request, "experience.html", context)
@@ -84,6 +93,7 @@ def show_projects(request):
             key=lambda project: project.starred_by.count(),
             reverse=True,
         )
+        
 
     is_editor = request.user.groups.filter(name="Editor").exists()
 
