@@ -102,6 +102,7 @@ def show_projects(request):
         "full_name": "Arsya Khairunissa Budiman",
         "project_list": projects,
         "title_query": title_query,
+        "sort_query": sort_query,
         "is_editor": is_editor,
     }
 
