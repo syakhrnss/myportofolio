@@ -22,6 +22,9 @@ class Experience(models.Model):
     role = models.CharField(max_length=100)
     is_featured = models.BooleanField(default=False)
     display_order = models.PositiveIntegerField(default=0)
+    starred_by = models.ManyToManyField(
+            User, related_name="starred_experiences", blank=True
+        )
     
     def __str__(self):
         return self.title

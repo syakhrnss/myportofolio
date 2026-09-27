@@ -47,20 +47,31 @@ def show_experience(request):
 
     experiences = [experience.object for experience in experiences]
 
-    experiences.sort(
-        key=lambda experience: experience.started_at,
-        reverse=True,
-    )
-
     title_query = request.GET.get("title", "").strip()
     category_query = request.GET.get("category", "").strip()
+    sort_query = request.GET.get("sort", "")
 
+    if sort_query == "stars":
+        experiences.sort(
+            key=lambda project: project.starred_by.count(),
+            reverse=True,
+        )
+    else:
+        experiences.sort(
+        key=lambda experience: experience.started_at,
+        reverse=True,
+        )
+
+    is_editor = request.user.groups.filter(name="Editor").exists()
 
     context = {
         "name": "Arsya",
         "full_name": "Arsya Khairunissa Budiman",
         "experience_list": experiences,
         "title_query": title_query,
+        "category_query" : category_query,
+        "sort_query" : sort_query,
+        "is_editor": is_editor,
     }
     return render(request, "experience.html", context)
 
@@ -75,11 +86,23 @@ def show_projects(request):
 
     title_query = request.GET.get("title", "").strip()
 
+    sort_query = request.GET.get("sort", "")
+
+    if sort_query == "stars":
+        projects.sort(
+            key=lambda project: project.starred_by.count(),
+            reverse=True,
+        )
+        
+
+    is_editor = request.user.groups.filter(name="Editor").exists()
+
     context = {
         "name": "Arsya",
         "full_name": "Arsya Khairunissa Budiman",
         "project_list": projects,
         "title_query": title_query,
+        "is_editor": is_editor,
     }
 
     return render(request, "projects.html", context)
@@ -102,9 +125,14 @@ def create_project(request):
     }
     return render(request, "projects_form.html", context)
 
+@login_required(login_url="/login/")
 def edit_project(request, project_id):
-    project = get_object_or_404(Project, pk=project_id)
+    is_editor = request.user.groups.filter(name="Editor").exists()
 
+    if not request.user.is_superuser and not is_editor:
+        raise PermissionDenied
+    
+    project = get_object_or_404(Project, pk=project_id)
     form = ProjectForm(request.POST or None, instance=project)
 
     if request.method == "POST" and form.is_valid():
@@ -144,7 +172,11 @@ def delete_project(request, project_id):
 
     return redirect("main:show_projects")
 
+@login_required(login_url="/login/")
 def create_experience(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+    
     form = ExperienceForm(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
@@ -159,7 +191,13 @@ def create_experience(request):
 
     return render(request, "experience_form.html", context)
 
+@login_required(login_url="/login/")
 def edit_experience(request, experience_id):
+    is_editor = request.user.groups.filter(name="Editor").exists()
+
+    if not request.user.is_superuser and not is_editor:
+        raise PermissionDenied
+    
     experience = get_object_or_404(Experience, pk=experience_id)
 
     form = ExperienceForm(request.POST or None, instance=experience)
@@ -177,7 +215,11 @@ def edit_experience(request, experience_id):
 
     return render(request, "experience_form.html", context)
 
+@login_required(login_url="/login/")
 def delete_experience(request, experience_id):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+    
     experience = get_object_or_404(Experience, pk=experience_id)
 
     if request.method == "POST":
@@ -232,7 +274,7 @@ def login_user(request):
     if request.method == "POST" and form.is_valid():
         user = form.get_user()
         login(request, user)
-        response = redirect("main::show_main")
+        response = redirect("main:show_main")
         response.set_cookie('last_login', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         return response
 
@@ -248,22 +290,6 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
-def login_user(request):
-    form = AuthenticationForm(request, data=request.POST or None)
-
-    if request.method == "POST" and form.is_valid():
-        user = form.get_user()
-        login(request, user)
-        response = redirect("main:show_main")
-        response.set_cookie('last_login', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        return response
-
-    context = {
-        "name": "Arsya",
-        "form": form,
-    }
-    return render(request, "login.html", context)
-
 # Tanpa cek is_superuser: semua akun yang sudah login boleh memberi star
 @login_required(login_url="/login/")
 def toggle_star(request, project_id):
@@ -278,3 +304,15 @@ def toggle_star(request, project_id):
             project.starred_by.add(request.user)
 
     return redirect("main:show_projects")
+
+@login_required(login_url="/login/")
+def toggle_experience_star(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+
+    if request.method == "POST":
+        if request.user in experience.starred_by.all():
+            experience.starred_by.remove(request.user)
+        else:
+            experience.starred_by.add(request.user)
+
+    return redirect("main:show_experience")
