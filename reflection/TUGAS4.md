@@ -14,5 +14,4 @@ https://chatgpt.com/share/6ab922dd-8738-83ec-be26-5c4376265dad
 | Memahami kode | Berdiskusi dan meminta penjelasan mengenai kode Django yang saya tulis agar lebih memahami cara kerja setiap bagian. | 
 | Debugging | Berdiskusi mengenai error yang ditemukan selama pengerjaan dan kemungkinan penyebabnya. | 
 | Sort by Most Starred | Berdiskusi mengenai implementasi fitur tambahan untuk mengurutkan Experience dan Projects berdasarkan jumlah star terbanyak. | 
-| Review | Meminta feedback terhadap implementasi yang sudah dibuat dan menyesuaikannya sendiri dengan struktur project dan requirements.| 
-ebelum diterapkan pada project. | 
+| Review | Meminta feedback terhadap implementasi yang sudah dibuat dan menyesuaikannya sendiri dengan struktur project dan requirements. | 
