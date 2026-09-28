@@ -151,7 +151,7 @@ def edit_project(request, project_id):
 
 def get_projects_json(request):
     title_query = request.GET.get("title", "").strip()
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by("id")
 
     if title_query:
         projects = projects.filter(title__icontains=title_query)
