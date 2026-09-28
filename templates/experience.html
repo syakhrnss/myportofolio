@@ -24,6 +24,9 @@
                     </a>
                     {% endif %}
                 </div>
+                {% for message in messages %}
+                    <p class="form-message">{{ message }}</p>
+                {% endfor %}
             </div>
 
             <form method="get"
