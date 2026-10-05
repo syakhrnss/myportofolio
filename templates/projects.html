@@ -35,10 +35,6 @@
                 {% endif %}
                 </div>
 
-                <button class="button button-secondary" onclick="showToast('Notifikasi Sistem', 'Project berhasil dimuat dengan baik!', 'success')">
-                    Test Toast Notifikasi
-                </button>
-
                 {% for message in messages %}
                     <p class="form-message">{{ message }}</p>
                 {% endfor %}
@@ -138,15 +134,6 @@
         errorState.classList.toggle('hide', !showError);
         emptyState.classList.toggle('hide', !showEmpty);
         gridContainer.classList.toggle('hide', !showGrid);
-    }
-
-    function escapeHtml(value) {
-        return String(value ?? '')
-            .replaceAll('&', '&amp;')
-            .replaceAll('<', '&lt;')
-            .replaceAll('>', '&gt;')
-            .replaceAll('"', '&quot;')
-            .replaceAll("'", '&#39;');
     }
 
     // Membuat elemen card project
@@ -378,22 +365,6 @@
 
     const CREATE_PROJECT_ENDPOINT = "{% url 'main:create_project_ajax' %}";
     const projectForm = document.getElementById('project-form');
-
-    // Membaca nilai cookie, digunakan untuk mengambil token CSRF
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
 
     // Mengirim data form ke server
     async function addProject(event) {
