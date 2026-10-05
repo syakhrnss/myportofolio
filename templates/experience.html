@@ -32,8 +32,17 @@
                 </div>
 
                 {% for message in messages %}
-                    <p class="form-message">{{ message }}</p>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        showToast(
+                            "Berhasil",
+                            "{{ message|escapejs }}",
+                            "success"
+                        );
+                    });
+                </script>
                 {% endfor %}
+                
             </div>
 
             <form id="experience-search-form" class="project-search">

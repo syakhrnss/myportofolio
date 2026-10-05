@@ -344,8 +344,10 @@ def toggle_experience_star(request, experience_id):
     if request.method == "POST":
         if request.user in experience.starred_by.all():
             experience.starred_by.remove(request.user)
+            messages.success(request, "Star dibatalkan.")
         else:
             experience.starred_by.add(request.user)
+            messages.success(request, "Experience berhasil di-star!")
 
     return redirect("main:show_experience")
 
