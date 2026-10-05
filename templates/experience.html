@@ -32,16 +32,16 @@
                 </div>
 
                 {% for message in messages %}
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        showToast(
-                            "Berhasil",
-                            "{{ message|escapejs }}",
-                            "success"
-                        );
-                    });
-                </script>
-                {% endfor %}
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    showToast(
+                        "Berhasil",
+                        "{{ message|escapejs }}",
+                        "success"
+                    );
+                });
+            </script>
+            {% endfor %}
                 
             </div>
 
