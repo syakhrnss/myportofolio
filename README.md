@@ -23,6 +23,7 @@ This project is a personal portfolio website developed to showcase my profile, e
 | 3 | Implemented the Model-View-Template (MVT) architecture for the Experience and Projects sections, including models, views, URL routing, templates, and database integration. |
 | 4 | Implemented complete CRUD functionality for the Experience and Projects sections using ModelForm, including Create, Update, and Delete features. Implemented JSON serialization and deserialization with JSON data delivery endpoints. Added search and category filtering for Experience, along with confirmation pop-ups for data deletion. |
 | 5 | Implemented authentication and authorization for the portfolio, including role-based access for regular users, Editors, and the portfolio owner (superuser). Added star functionality using a ManyToMany relationship with users, allowing authenticated users to give or remove stars. Implemented the Sort by Most Starred feature for Experience and Projects based on the total number of stars. Added server-side permission checks and restricted Create, Update, and Delete actions according to each user's role.|
+| 6 | Implemented AJAX and JavaScript functionality for Experience and Projects, including data loading, debounced search, category filtering, and sorting. Added modal-based Create Experience with AJAX, CSRF protection, validation, toast notifications, and XSS protection.|
 
 ## Documentation & AI Disclosure + Reflective Questions
 
@@ -32,6 +33,7 @@ This project is a personal portfolio website developed to showcase my profile, e
 | 2 | Implementing Model-View-Template (MVT) in Django | [Tugas2.md](/reflection/TUGAS2.md) |
 | 3 | Form & Data Delivery | [Tugas3.md](/reflection/TUGAS3.md) |
 | 4 | Authentication, Session and Cookies Implementation | [Tugas4.md](/reflection/TUGAS4.md) |
+| 5 | Web Interactivity with JavaScript | [Tugas5.md](/reflection/TUGAS5.md) |
 
 ## Setup and Deployment
 
