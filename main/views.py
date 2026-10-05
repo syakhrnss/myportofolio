@@ -3,13 +3,12 @@ import datetime
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.core import serializers
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required  
 from django.core.exceptions import PermissionDenied  
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST      
+from django.db.models import Count, Q
 
 from main.models import Experience, Project
 from main.forms import ProjectForm, ExperienceForm
@@ -40,40 +39,17 @@ def show_main(request):
 
 
 def show_experience(request):
-    json_response = get_experiences_json(request)
-
-    experiences = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-
-    experiences = [experience.object for experience in experiences]
-
-    title_query = request.GET.get("title", "").strip()
-    category_query = request.GET.get("category", "").strip()
-    sort_query = request.GET.get("sort", "")
-
-    if sort_query == "stars":
-        experiences.sort(
-            key=lambda project: project.starred_by.count(),
-            reverse=True,
-        )
-    else:
-        experiences.sort(
-        key=lambda experience: experience.started_at,
-        reverse=True,
-        )
-
     is_editor = request.user.groups.filter(name="Editor").exists()
-
+ 
     context = {
         "name": "Arsya",
         "full_name": "Arsya Khairunissa Budiman",
-        "experience_list": experiences,
-        "title_query": title_query,
-        "category_query" : category_query,
-        "sort_query" : sort_query,
+        "title_query": request.GET.get("title", "").strip(),
+        "category_query": request.GET.get("category", "").strip(),
+        "sort_query": request.GET.get("sort", "").strip(),
+        "categories": Experience.EXPERIENCE_CHOICES,
         "is_editor": is_editor,
+        "form": ExperienceForm(),
     }
     return render(request, "experience.html", context)
 
@@ -255,31 +231,60 @@ def delete_experience(request, experience_id):
 
     return redirect("main:show_experience")
 
+def serialize_experience(experience, user):
+    starred_users = list(experience.starred_by.all())
+    is_starred = user.is_authenticated and any(
+        starred_user.pk == user.pk for starred_user in starred_users
+    )
+ 
+    return {
+        "model": "main.experience",
+        "pk": str(experience.id),
+        "fields": {
+            "title": experience.title,
+            "description": experience.description,
+            "category": experience.category,
+            "category_display": experience.get_category_display(),
+            "thumbnail": experience.thumbnail or "",
+            "started_at": experience.started_at.isoformat(),
+            "ended_at": (
+                experience.ended_at.isoformat() if experience.ended_at else None
+            ),
+            "role": experience.role,
+            "is_featured": experience.is_featured,
+            "display_order": experience.display_order,
+            "is_ongoing": experience.is_ongoing,
+            "star_count": len(starred_users),
+            "is_starred": is_starred,
+            "starred_by_names": ", ".join(u.username for u in starred_users),
+        },
+    }
+ 
 def get_experiences_json(request):
     title_query = request.GET.get("title", "").strip()
     category_query = request.GET.get("category", "").strip()
-
-    experiences = Experience.objects.all()
-
+    sort_query = request.GET.get("sort", "").strip()
+ 
+    experiences = Experience.objects.prefetch_related("starred_by")
+ 
     if title_query:
         experiences = experiences.filter(
-            title__icontains=title_query
+            Q(title__icontains=title_query) | Q(role__icontains=title_query)
         )
-
-    if category_query:
-        experiences = experiences.filter(
-            category=category_query
-        )
-
-    experiences_json = serializers.serialize(
-        "json",
-        experiences,
-    )
-
-    return HttpResponse(
-        experiences_json,
-        content_type="application/json",
-    )
+ 
+    valid_categories = {value for value, _ in Experience.EXPERIENCE_CHOICES}
+    if category_query in valid_categories:
+        experiences = experiences.filter(category=category_query)
+ 
+    if sort_query == "stars":
+        experiences = experiences.annotate(
+            star_total=Count("starred_by", distinct=True)
+        ).order_by("-star_total", "-started_at")
+    else:
+        experiences = experiences.order_by("-started_at")
+ 
+    data = [serialize_experience(experience, request.user) for experience in experiences]
+    return JsonResponse(data, safe=False)
 
 def register(request):
     form = UserCreationForm(request.POST or None)
@@ -346,9 +351,6 @@ def toggle_experience_star(request, experience_id):
 
 @require_POST
 def create_project_ajax(request):
-    print(">>> MASUK CREATE PROJECT AJAX")
-    print(">>> POST:", request.POST)
-
     if not request.user.is_superuser:
         return JsonResponse(
             {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
@@ -356,12 +358,8 @@ def create_project_ajax(request):
         )
 
     form = ProjectForm(request.POST)
-    is_valid = form.is_valid()
 
-    print(">>> FORM VALID:", is_valid)
-    print(">>> FORM ERRORS:", form.errors)
-
-    if is_valid:
+    if form.is_valid():
         project = form.save()
         return JsonResponse(
             {"message": "Proyek berhasil ditambahkan.", "pk": str(project.id)},
@@ -372,3 +370,67 @@ def create_project_ajax(request):
         {"errors": form.errors.get_json_data()},
         status=400,
     )
+
+
+
+@require_POST
+def create_experience_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan pengalaman."},
+            status=403,
+        )
+
+    form = ExperienceForm(request.POST)
+
+    if form.is_valid():
+        experience = form.save()
+        return JsonResponse(
+            {"message": "Pengalaman berhasil ditambahkan.", "pk": str(experience.id)},
+            status=201,
+        )
+
+    return JsonResponse(
+        {"errors": form.errors.get_json_data()},
+        status=400,
+    )
+
+
+@require_POST
+def toggle_experience_star_ajax(request, experience_id):
+    if not request.user.is_authenticated:
+        return JsonResponse(
+            {"message": "Silakan login terlebih dahulu untuk memberi star."},
+            status=401,
+        )
+
+    experience = get_object_or_404(Experience, pk=experience_id)
+
+    if experience.starred_by.filter(pk=request.user.pk).exists():
+        experience.starred_by.remove(request.user)
+        is_starred = False
+    else:
+        experience.starred_by.add(request.user)
+        is_starred = True
+
+    starred_users = experience.starred_by.all()
+
+    return JsonResponse({
+        "is_starred": is_starred,
+        "star_count": starred_users.count(),
+        "starred_by_names": ", ".join(u.username for u in starred_users),
+    })
+
+
+@require_POST
+def delete_experience_ajax(request, experience_id):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menghapus pengalaman."},
+            status=403,
+        )
+
+    experience = get_object_or_404(Experience, pk=experience_id)
+    experience.delete()
+
+    return JsonResponse({"message": "Pengalaman berhasil dihapus."})
