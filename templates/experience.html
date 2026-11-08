@@ -348,8 +348,11 @@
         if (response.status === 204) return null;
 
         const data = await response.json().catch(() => ({}));
-        if (!response.ok) throw new Error(apiErrorMessage(data, response.status));
-        return data;
+        if (!response.ok) {
+            const error = new Error(apiErrorMessage(data, response.status));
+            error.fieldErrors = response.status === 400 ? data : {};
+            throw error;
+        }
     }
 
     // Event Handlers untuk Form Search
@@ -381,10 +384,31 @@
         });
     });
 
+    // Error validasi 400 ditampilkan di bawah input yang bermasalah
+    function clearFieldErrors() {
+        experienceForm.querySelectorAll('.form-error').forEach(el => el.remove());
+        experienceForm.querySelectorAll('[aria-invalid="true"]')
+            .forEach(el => el.removeAttribute('aria-invalid'));
+    }
+
+    function showFieldErrors(fieldErrors) {
+        Object.entries(fieldErrors || {}).forEach(([name, messages]) => {
+            const input = experienceForm.elements[name];
+            if (!input || !Array.isArray(messages)) return;
+
+            const message = document.createElement('p');
+            message.className = 'form-error';
+            message.textContent = messages.join(' ');   // textContent: aman dari HTML injection
+            input.setAttribute('aria-invalid', 'true');
+            input.closest('.form-group').appendChild(message);
+        });
+    }
+
     // Modal tambah / ubah
     function openExperienceModal(experience = null) {
         editingExperienceId = experience ? experience.id : null;
         experienceForm.reset();
+        clearFieldErrors();
 
         if (experience) {
             const fields = experienceForm.elements;
@@ -428,6 +452,7 @@
         const submitButton = document.getElementById('experience-submit-button');
         const isEdit = editingExperienceId !== null;
         submitButton.disabled = true;
+        clearFieldErrors();
 
         try {
             await writeExperience(
@@ -440,6 +465,7 @@
             showToast('Berhasil', isEdit ? 'Pengalaman berhasil diperbarui!' : 'Pengalaman baru berhasil ditambahkan!', 'success');
             await searchExperiences();
         } catch (error) {
+            showFieldErrors(error.fieldErrors);
             showToast(isEdit ? 'Gagal memperbarui pengalaman' : 'Gagal menambahkan pengalaman', error.message, 'error');
         } finally {
             submitButton.disabled = false;
@@ -486,7 +512,7 @@
             openExperienceModal(experiencesById.get(id));
             return;
         }
-        
+
         if (action === 'delete') {
             const item = experiencesById.get(id);
             if (!(await confirmDelete(item ? item.title : ''))) return;

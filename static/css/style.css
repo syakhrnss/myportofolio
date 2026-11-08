@@ -1371,6 +1371,10 @@ a { color: inherit; text-decoration: none; }
     margin-top: 0.35rem;
 }
 
+.form-group [aria-invalid="true"] {
+    border-color: #b42318;   
+}
+
 .button {
     display: inline-block;
     height: fit-content;
