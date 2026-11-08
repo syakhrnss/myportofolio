@@ -133,6 +133,13 @@
     {% include "components/experience_form_modal.html" %}
 {% endif %}
 
+{% if user.is_superuser or is_editor %}
+    {% include "components/experience_form_modal.html" %}
+{% endif %}
+{% if user.is_superuser %}
+    {% include "components/experience_delete_modal.html" %}
+{% endif %}
+
 <!-- Memastikan cookie csrftoken selalu terpasang, termasuk untuk pengguna biasa yang memberi star lewat fetch(). -->
 {% csrf_token %}
 <script>
@@ -442,6 +449,31 @@
     if (experienceForm) experienceForm.addEventListener('submit', saveExperience);
     if (addExperienceButton) addExperienceButton.addEventListener('click', () => openExperienceModal());
 
+    // Konfirmasi hapus lewat modal bersama 
+    const deleteModal = document.getElementById('delete-experience-modal');
+    const deleteModalName = document.getElementById('delete-experience-name');
+    const confirmDeleteButton = document.getElementById('confirm-delete-button');
+
+    function confirmDelete(title) {
+        return new Promise((resolve) => {
+            if (!deleteModal) { resolve(false); return; }
+
+            deleteModalName.textContent = title;   // textContent: aman dari HTML injection
+
+            const finish = (result) => {
+                confirmDeleteButton.removeEventListener('click', onConfirm);
+                deleteModal.removeEventListener('toggle', onToggle);
+                resolve(result);
+            };
+            const onConfirm = () => { finish(true); deleteModal.hidePopover(); };
+            const onToggle = (event) => { if (event.newState === 'closed') finish(false); };
+
+            confirmDeleteButton.addEventListener('click', onConfirm);
+            deleteModal.addEventListener('toggle', onToggle);
+            deleteModal.showPopover();
+        });
+    }
+
     // Action pada card (event delegation): edit, star, hapus
     gridContainer.addEventListener('click', async function(event) {
         const button = event.target.closest('button[data-action]');
@@ -454,7 +486,11 @@
             openExperienceModal(experiencesById.get(id));
             return;
         }
-        if (action === 'delete' && !window.confirm('Yakin ingin menghapus pengalaman ini?')) return;
+        
+        if (action === 'delete') {
+            const item = experiencesById.get(id);
+            if (!(await confirmDelete(item ? item.title : ''))) return;
+        }
 
         button.disabled = true;
         try {
