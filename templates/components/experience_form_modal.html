@@ -3,35 +3,31 @@
      popover="auto"
      role="dialog"
      aria-modal="true"
-     aria-labelledby="add-experience-modal-title">
+     aria-labelledby="experience-modal-title">
     <button type="button"
             class="project-form-modal__backdrop"
             popovertarget="add-experience-modal"
             popovertargetaction="hide"
-            aria-label="Tutup form tambah pengalaman"></button>
+            aria-label="Tutup form pengalaman"></button>
 
     <div class="project-form-modal__content">
         <button type="button"
                 class="project-form-modal__close"
                 popovertarget="add-experience-modal"
                 popovertargetaction="hide"
-                aria-label="Tutup form tambah pengalaman">×</button>
+                aria-label="Tutup form pengalaman">×</button>
 
-        <h2 id="add-experience-modal-title">Tambah Pengalaman Baru</h2>
+        <h2 id="experience-modal-title">Tambah Pengalaman Baru</h2>
 
-        <form id="experience-form"
-              method="post"
-              action="{% url 'main:create_experience' %}"
-              class="project-form">
+        {# Form ini dipakai untuk tambah (POST) dan ubah (PATCH) lewat fetch(); #}
+        {# {% csrf_token %} di sini memastikan cookie csrftoken terpasang. #}
+        <form id="experience-form" method="post" class="project-form">
             {% csrf_token %}
 
             {% for field in form %}
                 <div class="form-group">
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                     {{ field }}
-                    {% for error in field.errors %}
-                        <p class="form-error">{{ error }}</p>
-                    {% endfor %}
                 </div>
             {% endfor %}
 
@@ -40,7 +36,9 @@
                         class="button button-secondary"
                         popovertarget="add-experience-modal"
                         popovertargetaction="hide">Batal</button>
-                <button type="submit" class="button">Tambah Pengalaman</button>
+                <button type="submit"
+                        id="experience-submit-button"
+                        class="button">Tambah Pengalaman</button>
             </div>
         </form>
     </div>
