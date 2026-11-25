@@ -90,7 +90,6 @@ def _star_response(model, serializer_class, pk, request):
 # Projects
 
 @api_view(["GET", "HEAD", "POST"])
-@authentication_classes([SessionAuthentication])
 @permission_classes([IsPortfolioOwnerOrReadOnly])
 def project_list(request):
     # GET: daftar (?title=, ?sort=stars). POST: create (hanya owner)
@@ -100,7 +99,6 @@ def project_list(request):
 
 
 @api_view(["GET", "HEAD", "PUT", "PATCH", "DELETE"])
-@authentication_classes([SessionAuthentication])
 @permission_classes([IsPortfolioOwnerOrEditorOrReadOnly])
 def project_detail(request, project_id):
     # GET: detail. PUT/PATCH: ubah (Owner/Editor). DELETE: hapus (owner).
@@ -108,7 +106,6 @@ def project_detail(request, project_id):
 
 
 @api_view(["POST"])
-@authentication_classes([SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def project_star(request, project_id):
     # Beri atau batalkan star hanya untuk akun yang sudah login.
@@ -143,3 +140,13 @@ def experience_detail(request, experience_id):
 def experience_star(request, experience_id):
     # Beri atau batalkan star hanya untuk akun yang sudah login.
     return _star_response(Experience, ExperienceSerializer, experience_id, request)
+
+# Auth
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def api_logout(request):
+    # Hapus token milik pemanggil, lalu balas 204 No Content.
+    if request.auth is not None:
+        request.auth.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
