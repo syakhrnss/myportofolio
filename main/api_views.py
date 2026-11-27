@@ -15,9 +15,8 @@ isi view (cari objek, serializer) -> response.
 
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import (
-    api_view, authentication_classes, permission_classes,
+    api_view, permission_classes,
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -115,7 +114,6 @@ def project_star(request, project_id):
 # Experience
 
 @api_view(["GET", "HEAD", "POST"])
-@authentication_classes([SessionAuthentication])
 @permission_classes([IsPortfolioOwnerOrEditorOrReadOnly])
 def experience_list(request):
     # GET: daftar (?title=, ?category=, ?sort=stars). POST: create (hanya owner).
@@ -127,7 +125,6 @@ def experience_list(request):
 
 
 @api_view(["GET", "HEAD", "PUT", "PATCH", "DELETE"])
-@authentication_classes([SessionAuthentication])
 @permission_classes([IsPortfolioOwnerOrEditorOrReadOnly])
 def experience_detail(request, experience_id):
     # GET: detail. PUT/PATCH: ubah (Owner/Editor). DELETE: hapus (owner).
@@ -135,7 +132,6 @@ def experience_detail(request, experience_id):
 
 
 @api_view(["POST"])
-@authentication_classes([SessionAuthentication])
 @permission_classes([IsAuthenticated])
 def experience_star(request, experience_id):
     # Beri atau batalkan star hanya untuk akun yang sudah login.
